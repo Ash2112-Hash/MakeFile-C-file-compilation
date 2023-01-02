@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# create a c file called debug_info.c and append the following lines of code to it
+echo "#include <stdio.h>" > debug_info.c
+echo "extern void debug(char);" >> debug_info.c
+echo "int main() {" >> debug_info.c
+echo "#ifdef _debug_typeA" >> debug_info.c
+echo "     debug('A');" >> debug_info.c
+echo "#else" >> debug_info.c
+echo "     #ifdef _debug_typeB" >> debug_info.c
+echo "        debug('B');" >> debug_info.c
+echo "     #else" >> debug_info.c
+echo "     debug('C');" >> debug_info.c
+echo "  #endif" >> debug_info.c
+echo "#endif" >> debug_info.c
+echo "return 0;" >> debug_info.c
+echo "}" >> debug_info.c
+
+
+# create a c file called deb.c and append the following lines of code to it
+echo "#include <stdio.h>" > deb.c
+echo "void debug(char c) {" >> deb.c 
+echo "  if (c == 'A' || c == 'B') {" >> deb.c 
+echo "    printf("Debugging system %c\n",c);" >> deb.c 
+echo "  }else{" >> deb.c
+echo "    printf("Debugging turned off\n");" >> deb.c 
+echo "  }" >> deb.c
+echo "}" >> deb.c
+
+
+# creates the following files: Program, DA and DB and makes it executable through the make command (executing the makefile)
+# After generating the file, they are immediately executed
+make Program      
+Program
+
+make DA
+DA
+
+make DB
+DB
